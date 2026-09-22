@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌻 Para Mafer 💛</title>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        min-height: 100vh;
+        overflow-x: hidden;
+        overflow-y: auto;
+        font-family: Georgia, serif;
+        background:
+            radial-gradient(circle at 50% 30%, #493b13 0%, #171508 35%, #080805 100%);
+        color: #fff8d6;
+    }
+
+    body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background:
+            radial-gradient(circle at 20% 20%, rgba(255, 210, 40, .12), transparent 25%),
+            radial-gradient(circle at 80% 70%, rgba(255, 190, 20, .08), transparent 30%);
+        pointer-events: none;
+    }
+
+    .container {
+        position: relative;
+        z-index: 2;
+        min-height: 100svh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+    }
+
+    .card {
+        position: relative;
+        width: min(500px, 94vw);
+        max-height: calc(100svh - 30px);
+        overflow-y: auto;
+        overflow-x: hidden;
+
+        padding: 38px 28px 30px;
+
+        border: 1px solid rgba(255, 215, 70, .35);
+        border-radius: 25px;
+
+        background: rgba(20, 18, 7, .80);
+        backdrop-filter: blur(12px);
+
+        box-shadow:
+            0 0 50px rgba(255, 204, 0, .12),
+            inset 0 0 30px rgba(255, 210, 40, .04);
+
+        scrollbar-width: thin;
+    }
+
+    .card::-webkit-scrollbar {
+        width: 5px;
+    }
+
+    .card::-webkit-scrollbar-thumb {
+        background: rgba(255, 215, 70, .35);
+        border-radius: 20px;
+    }
+
+    /* 🐶 Snoopy */
+    .snoopy {
+        position: absolute;
+        font-size: 50px;
+        animation: dogFloat 3s ease-in-out infinite;
+        filter: drop-shadow(0 0 8px rgba(255,255,255,.15));
+        pointer-events: none;
+    }
+
+    .snoopy-left {
+        left: -12px;
+        bottom: 25px;
+    }
+
+    .snoopy-right {
+        right: -12px;
+        top: 20px;
+        animation-delay: 1s;
+    }
+
+    .heart {
+        position: absolute;
+        font-size: 23px;
+        opacity: .8;
+        pointer-events: none;
+    }
+
+    .heart-one {
+        top: 80px;
+        left: 25px;
+    }
+
+    .heart-two {
+        bottom: 80px;
+        right: 25px;
+    }
+
+    .flower {
+        font-size: 80px;
+        text-align: center;
+        animation: float 3s ease-in-out infinite;
+        filter: drop-shadow(0 0 15px rgba(255, 210, 0, .5));
+    }
+
+    h1 {
+        margin-top: 8px;
+        text-align: center;
+        font-size: 42px;
+        color: #ffd92f;
+        text-shadow: 0 0 20px rgba(255, 210, 40, .4);
+    }
+
+    .subtitle {
+        margin: 10px 0 22px;
+        text-align: center;
+        font-size: 17px;
+        color: #fff3b0;
+        line-height: 1.5;
+    }
+
+    .buttons {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    button {
+        width: min(280px, 90%);
+        border: none;
+        padding: 13px 24px;
+        border-radius: 50px;
+
+        background: linear-gradient(135deg, #ffd21f, #ffad00);
+        color: #271f00;
+
+        font-size: 15px;
+        font-weight: bold;
+        cursor: pointer;
+
+        box-shadow: 0 0 25px rgba(255, 200, 20, .3);
+        transition: .3s;
+    }
+
+    button:hover {
+        transform: scale(1.04);
+        box-shadow: 0 0 35px rgba(255, 210, 30, .6);
+    }
+
+    .music-button {
+        background: rgba(255, 220, 80, .10);
+        color: #ffe98a;
+        border: 1px solid rgba(255, 215, 70, .4);
+        box-shadow: none;
+    }
+
+    /* 💛 Mensaje */
+    .message {
+        display: none;
+        margin-top: 25px;
+        animation: messageIn .8s ease;
+    }
+
+    .message.show {
+        display: block;
+    }
+
+    .message p {
+        line-height: 1.65;
+        font-size: 16px;
+        color: #fff5c2;
+        text-align: left;
+    }
+
+    .signature {
+        margin-top: 18px;
+        color: #ffd52a;
+        font-size: 19px;
+        text-align: center;
+    }
+
+    /* 🎵 Caja sincronizada */
+    .lyrics {
+        margin-top: 22px;
+        padding: 17px;
+
+        min-height: 120px;
+
+        border-radius: 18px;
+        background: rgba(255, 220, 80, .07);
+        border: 1px solid rgba(255, 215, 70, .18);
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        text-align: center;
+
+        color: #ffeeb0;
+        font-size: 15px;
+        line-height: 1.6;
+
+        transition: .5s ease;
+    }
+
+    .lyrics.active {
+        box-shadow:
+            0 0 25px rgba(255, 210, 40, .18),
+            inset 0 0 20px rgba(255, 210, 40, .04);
+
+        transform: translateY(-2px);
+    }
+
+    #lyricsText {
+        transition: opacity .35s ease;
+    }
+
+    .music-status {
+        margin-top: 9px;
+        text-align: center;
+        font-size: 12px;
+        color: rgba(255,240,170,.55);
+    }
+
+    .hint {
+        margin-top: 12px;
+        text-align: center;
+        font-size: 12px;
+        color: rgba(255,240,170,.45);
+    }
+
+    /* 🌻 Flores */
+    .falling-flower {
+        position: fixed;
+        top: -50px;
+        z-index: 1;
+        pointer-events: none;
+
+        animation: fall linear forwards;
+
+        filter: drop-shadow(
+            0 0 5px rgba(255, 210, 30, .4)
+        );
+    }
+
+    @keyframes fall {
+
+        0% {
+            transform:
+                translateY(-50px)
+                rotate(0deg);
+
+            opacity: 0;
+        }
+
+        10% {
+            opacity: 1;
+        }
+
+        100% {
+            transform:
+                translateY(110vh)
+                rotate(360deg);
+
+            opacity: .8;
+        }
+    }
+
+    @keyframes float {
+
+        0%, 100% {
+            transform: translateY(0);
+        }
+
+        50% {
+            transform: translateY(-10px);
+        }
+    }
+
+    @keyframes dogFloat {
+
+        0%, 100% {
+            transform:
+                translateY(0)
+                rotate(-5deg);
+        }
+
+        50% {
+            transform:
+                translateY(-8px)
+                rotate(5deg);
+        }
+    }
+
+    @keyframes messageIn {
+
+        from {
+            opacity: 0;
+            transform: translateY(15px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .small-text {
+        margin-top: 22px;
+        text-align: center;
+        font-size: 12px;
+        line-height: 1.5;
+        color: rgba(255, 240, 170, .5);
+    }
+
+    /* 📱 CELULAR */
+    @media (max-width: 600px) {
+
+        .container {
+            min-height: 100svh;
+            padding: 10px;
+            align-items: center;
+        }
+
+        .card {
+            width: 96vw;
+            max-height: calc(100svh - 20px);
+            padding: 30px 18px 25px;
+            border-radius: 22px;
+        }
+
+        .flower {
+            font-size: 67px;
+        }
+
+        h1 {
+            font-size: 34px;
+        }
+
+        .subtitle {
+            font-size: 15px;
+            margin-bottom: 20px;
+        }
+
+        .message p {
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        .signature {
+            font-size: 18px;
+        }
+
+        .lyrics {
+            font-size: 14px;
+            min-height: 105px;
+            padding: 15px;
+        }
+
+        .snoopy {
+            font-size: 38px;
+        }
+
+        .snoopy-left {
+            left: -6px;
+            bottom: 18px;
+        }
+
+        .snoopy-right {
+            right: -6px;
+            top: 15px;
+        }
+
+        .heart {
+            font-size: 20px;
+        }
+
+        .heart-one {
+            top: 70px;
+            left: 18px;
+        }
+
+        .heart-two {
+            bottom: 60px;
+            right: 18px;
+        }
+
+        button {
+            width: 90%;
+            max-width: 270px;
+            padding: 12px 20px;
+            font-size: 14px;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<!-- 🎵 Pon MUSICA.mp3 junto a este HTML -->
+<audio id="music">
+    <source src="musica.mp3" type="audio/mpeg">
+</audio>
+
+<div class="container">
+
+    <div class="card">
+
+        <!-- 🐶 Decoración -->
+        <div class="snoopy snoopy-left">🐶</div>
+        <div class="snoopy snoopy-right">🐶</div>
+
+        <div class="heart heart-one">💛</div>
+        <div class="heart heart-two">🌼</div>
+
+        <div class="flower">🌻</div>
+
+        <h1>🫰🏻</h1>
+
+        <p class="subtitle">
+            Hoy quería darte algooop
+            <br>
+            yyy hice estop para ti 🫰🏻
+        </p>
+
+        <div class="buttons">
+
+            <button onclick="openMessage()" id="openButton">
+                Abrir 🌻
+            </button>
+
+            <button
+                class="music-button"
+                onclick="toggleMusic()"
+                id="musicButton">
+                🎵 Reproducir música
+            </button>
+
+        </div>
+
+        <!-- 💛 MENSAJE -->
+        <div class="message" id="message">
+
+            <p>
+                Holisss Mafer 🌻
+                <br><br>
+
+                Hoy hice esta pequeña página especialmente para ti
+                porque quería darte un detalle diferente por el día
+                de las flores amarillas.
+                <br><br>
+
+                Sé que tal vez no es lo mismo que poder darte unas
+                flores en personaaaaa, pero quería hacer algo un poquito
+                más especial y que pudiera quedarse como un pequeño
+                recuerdoo y espero q te gusteee🫰🏻
+                <br><br>
+
+                No sabía muy bien cómo hacerlo, así que pensé:
+                ¿por qué no hacerte algo yo mismo? JSJAJS aunque sea una pagina
+                <br><br>
+
+                Hayy, no sabes cuánto te quiero💗, muchísimo.
+                De verdad eres una persona muy especial para mí
+                y me encanta compartir momentos contigo💗
+                <br><br>
+
+                A un que veces no sé cómo demostrarte todo lo que siento,
+                pero quiero que sepas que me importas muchísimo.
+                Y sinceramente,no me gustaría perderte noononon
+                <br><br>
+
+                Quiero seguir conociéndote, seguir compartiendo
+                momentos contigo y seguir viendo todas las cosas
+                bonitas que nos esperan jsjss 🌻
+            </p>
+
+            <div class="signature">
+                — Con cariño 💗💗🫰🏻
+            </div>
+
+            <!-- 🎵 MENSAJES QUE CAMBIAN CON LA MÚSICA -->
+            <div class="lyrics" id="lyricsBox">
+
+                <div id="lyricsText">
+                    🎵 Reproduce la música...
+                    <br><br>
+                    y aparecerán mis mensajitos aquí 💛
+                </div>
+
+            </div>
+
+            <div class="music-status" id="musicStatus">
+                🌻 La música está lista
+            </div>
+
+            <div class="hint">
+                ↓ Desliza hacia abajo para leer todo ↓
+            </div>
+
+        </div>
+
+        <div class="small-text">
+            21 de septiembre · Día de las Flores Amarillas
+            <br>
+            JAJAJAJA 🌻💛
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+/* =========================
+   🌻 FLORES
+========================= */
+
+function createFlower() {
+
+    const flower =
+        document.createElement("div");
+
+    flower.classList.add(
+        "falling-flower"
+    );
+
+    flower.innerHTML =
+        Math.random() > 0.5
+        ? "🌻"
+        : "🌼";
+
+    flower.style.left =
+        Math.random() * 100 + "vw";
+
+    flower.style.fontSize =
+        (15 + Math.random() * 25) + "px";
+
+    flower.style.animationDuration =
+        (5 + Math.random() * 6) + "s";
+
+    flower.style.transform =
+        `rotate(${Math.random() * 360}deg)`;
+
+    document.body.appendChild(flower);
+
+    setTimeout(() => {
+
+        flower.remove();
+
+    }, 12000);
+}
+
+
+/* =========================
+   💛 ABRIR MENSAJE
+========================= */
+
+function openMessage() {
+
+    const message =
+        document.getElementById("message");
+
+    message.classList.add("show");
+
+    const button =
+        document.getElementById("openButton");
+
+    button.innerHTML =
+        "🌻 Sorpresa abierta";
+
+    /* Explosión de flores */
+    for (let i = 0; i < 35; i++) {
+
+        setTimeout(
+            createFlower,
+            i * 60
+        );
+
+    }
+
+    /* Baja un poquito para mostrar el contenido */
+    setTimeout(() => {
+
+        message.scrollIntoView({
+            behavior: "smooth",
+            block: "nearest"
+        });
+
+    }, 500);
+}
+
+
+/* =========================
+   🎵 MÚSICA
+========================= */
+
+const music =
+    document.getElementById("music");
+
+const musicButton =
+    document.getElementById("musicButton");
+
+const musicStatus =
+    document.getElementById("musicStatus");
+
+const lyricsText =
+    document.getElementById("lyricsText");
+
+const lyricsBox =
+    document.getElementById("lyricsBox");
+
+
+function toggleMusic() {
+
+    if (music.paused) {
+
+        music.play()
+            .then(() => {
+
+                musicButton.innerHTML =
+                    "⏸️ Pausar música";
+
+                musicStatus.innerHTML =
+                    "🎶 Reproduciendo...";
+
+                lyricsBox.classList.add(
+                    "active"
+                );
+
+            })
+            .catch(() => {
+
+                musicStatus.innerHTML =
+                    "⚠️ No se pudo reproducir el audio";
+
+            });
+
+    } else {
+
+        music.pause();
+
+        musicButton.innerHTML =
+            "🎵 Reproducir música";
+
+        musicStatus.innerHTML =
+            "⏸️ Música pausada";
+
+        lyricsBox.classList.remove(
+            "active"
+        );
+    }
+}
+
+
+/* =========================
+   💛 MENSAJES SINCRONIZADOS
+========================= */
+
+/*
+    Los tiempos están en segundos.
+
+    Son mensajes ORIGINALES para Mafer,
+    no la letra de la canción.
+*/
+
+const mensajes = [
+
+    {
+        tiempo: 0,
+        texto:
+        "Espero que esta pequeña página te saque una sonrisa JAAJ"
+    },
+
+    {
+        tiempo: 12,
+        texto:
+        "hice esto especialmente para ti jsjsjjs"
+    },
+
+    {
+        tiempo: 28,
+        texto:
+        " Hayy, no sabes cuánto te quiero muchísimo."
+    },
+
+    {
+        tiempo: 48,
+        texto:
+        "Me encanta compartir momentos contigo."
+    },
+
+    {
+        tiempo: 70,
+        texto:
+        " Eres una persona muy especial para mí."
+    },
+
+    {
+        tiempo: 95,
+        texto:
+        "A veces no sé cómo demostrarte todo lo que siento."
+    },
+
+    {
+        tiempo: 120,
+        texto:
+        "Pero quiero que sepas que me importas muchísimo."
+    },
+
+    {
+        tiempo: 145,
+        texto:
+        "🥺 Y sinceramente, no me gustaría perderte."
+    },
+
+    {
+        tiempo: 170,
+        texto:
+        "🫰🏻 Quiero seguir conociéndote y compartiendo momentos contigo."
+    },
+
+    {
+        tiempo: 195,
+        texto:
+        "🫰🏻 Gracias por estar en mi vida."
+    },
+
+    {
+        tiempo: 220,
+        texto:
+        "🫰🏻 Te quiero muchísimo, Mafer."
+    },
+
+    {
+        tiempo: 240,
+        texto:
+       "ya no supe q poner JAAJAJJAJA "
+    }
+
+];
+
+
+let mensajeActual = -1;
+
+
+/* =========================
+   🎶 SINCRONIZACIÓN
+========================= */
+
+music.addEventListener(
+    "timeupdate",
+    () => {
+
+        const tiempoActual =
+            music.currentTime;
+
+        let nuevoMensaje = -1;
+
+        for (
+            let i = 0;
+            i < mensajes.length;
+            i++
+        ) {
+
+            if (
+                tiempoActual >=
+                mensajes[i].tiempo
+            ) {
+
+                nuevoMensaje = i;
+
+            }
+
+        }
+
+        if (
+            nuevoMensaje !== -1 &&
+            nuevoMensaje !== mensajeActual
+        ) {
+
+            mensajeActual =
+                nuevoMensaje;
+
+            lyricsText.style.opacity = 0;
+
+            setTimeout(() => {
+
+                lyricsText.innerHTML =
+                    mensajes[nuevoMensaje].texto;
+
+                lyricsText.style.opacity = 1;
+
+            }, 250);
+
+        }
+
+    }
+);
+
+
+/* =========================
+   🌻 CUANDO TERMINA
+========================= */
+
+music.addEventListener(
+    "ended",
+    () => {
+
+        musicButton.innerHTML =
+            "🎵 Reproducir música";
+
+        musicStatus.innerHTML =
+            "💛 Terminó la canción";
+
+        lyricsText.innerHTML =
+            "Hayy... no sabes cuánto te quiero, Mafer. 🌻💛";
+
+        lyricsBox.classList.remove(
+            "active"
+        );
+
+        mensajeActual = -1;
+
+    }
+);
+
+
+/* =========================
+   🌼 FLORES AUTOMÁTICAS
+========================= */
+
+setInterval(
+    createFlower,
+    550
+);
+
+</script>
+
+</body>
+</html>
